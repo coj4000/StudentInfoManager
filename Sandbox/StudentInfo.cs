@@ -17,22 +17,33 @@ namespace Sandbox
         // Return the number of students in the group of students
         public int GetStudentCount()
         {
+
             // The below must be changed
-            return 0;
+            return students.Count;
         }
 
         // Add a single student to the group of students
         public void AddStudent(int id, Student aStudent)
         {
             // Add code here
+            students.Add(id, aStudent);
         }
 
         // Given an id, return the student with that id.
         // If no student exists with the given id, return null
         public Student GetStudent(int id)
         {
+            
             // The below must be changed
-            return null;
+            if (students.ContainsKey(id))
+            {
+                return students[id];
+            }
+            else
+            {
+                return null;
+            }
+           
         }
 
         // Given an id, return the score average for the student with that id.
@@ -40,7 +51,15 @@ namespace Sandbox
         public int GetAverageForStudent(int id)
         {
             // The below must be changed
-            return 0;
+
+            if (students.ContainsKey(id))
+            {
+                return students[id].GetScoreAverage();
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         // Calculate the total test score average for ALL students
@@ -49,7 +68,14 @@ namespace Sandbox
         public int GetTotalAverage()
         {
             // The below must be changed
-            return 0;
+            List<int> studlist = GetAllStudentId();
+            int amnt = 0;
+
+            foreach (int id in studlist)
+            {
+                amnt = amnt + GetAverageForStudent(id);
+            }
+            return (amnt / studlist.Count);
         }
 
         // Returns a list of all ids of the students in the group of students
